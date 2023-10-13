@@ -4,9 +4,9 @@ const { search } = require("../controller/owner");
 
 router.prefix("/owner");
 
-router.post("/search", async (ctx, next) => {
+router.get("/get", async (ctx, next) => {
   try {
-    const ownerData = ctx.request.body; // {name, phone, build, class, floor, number}
+    const ownerData = ctx.query; // {name, phone, build, class, floor, number}
     let userInfo = await search({...ownerData});
 
     if (userInfo) {

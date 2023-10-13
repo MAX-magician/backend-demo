@@ -1,23 +1,27 @@
-const multer = require("koa-multer");
+/**
+ * 上传文件, 控制器
+ */
+
+// 引入数据库模型
 const Files = require("../model/Files");
 
-let storage = multer.diskStorage({
-  //文件保存路径 这个路由是以项目文件夹 也就是和入口文件（如app.js同一个层级的）
-  destination: function (req, file, cb) {
-    cb(null, "files/photo/");
-  },
-  //修改文件名称
-  filename: function (req, file, cb) {
-    let fileFormat = file.originalname.split("."); //以点分割成数组，数组的最后一项就是后缀名
-    cb(null, "Magic" + Date.now() + "." + fileFormat[fileFormat.length - 1]);
-  },
-});
-
-let upload = multer({
-  storage: storage,
-  //   limits: {
-  //     fileSize: (1024 * 1024) / 2, // 限制512KB
-  //   },
-});
-
-module.exports = upload;
+// 新建
+/**
+ * 文件上传的控制器
+ * @param {Object} params 用户ID 文件类型 标签 文件的路径
+ * @returns {String} 文件的路径
+ */
+const addFile = async (params) => {
+  const file = new Files(params);
+  // 用户保存, 就是新增的效果
+  userInfo = await file.save();
+  if (userInfo != null) {
+    return userInfo;
+  } else {
+    return false;
+  }
+};
+// 导出
+module.exports = {
+  addFile,
+};

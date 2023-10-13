@@ -6,17 +6,13 @@ const mongoose = require("../db/db");
 // 配置字段的格式
 const FilesSchema = mongoose.Schema(
   {
-    name: {
+    userId: {
       type: String,
       required: true,
-    }, // 用户名称
-    phone: {
-      type: String,
-    },
-    build: String, //楼号
-    class: String, // 单元
-    floor: String, // 楼层
-    number: String, // 户号
+    }, // 用户ID 归属
+    fileType: Number, //文件类型  1.图片  2.视频  3.文档  4.压缩包  5.可执行文件
+    fileURL: String, // 已保存的文件路径
+    label: Array, // 文件的标签
     createTime: {
       type: Date,
       default: Date.now(),
